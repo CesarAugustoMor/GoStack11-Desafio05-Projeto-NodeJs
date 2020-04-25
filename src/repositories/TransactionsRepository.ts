@@ -25,21 +25,20 @@ export default class TransactionsRepository {
   public getBalance(): Balance {
     const balance = this.transactions.reduce(
       (acumulator: Balance, transaction) => {
-        const acum = acumulator;
         switch (transaction.type) {
           case 'income':
-            acum.income += transaction.value;
-            acum.total += transaction.value;
+            acumulator.income += transaction.value;
+            acumulator.total += transaction.value;
             break;
           case 'outcome':
-            acum.outcome += transaction.value;
-            acum.total -= transaction.value;
+            acumulator.outcome += transaction.value;
+            acumulator.total -= transaction.value;
             break;
 
           default:
             break;
         }
-        return acum;
+        return acumulator;
       },
       { income: 0, outcome: 0, total: 0 },
     );
